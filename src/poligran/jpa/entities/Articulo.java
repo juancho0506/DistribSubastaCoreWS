@@ -3,6 +3,8 @@
  */
 package poligran.jpa.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +17,16 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Articulo {
+public class Articulo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8541136672395066727L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Basic(optional=false)
+	@Column(name="codigo")
 	private Integer codigo;
 	
 	@Column

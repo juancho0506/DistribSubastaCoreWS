@@ -3,6 +3,8 @@
  */
 package poligran.jpa.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +19,17 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class Subasta {
+public class Subasta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5192726531615299284L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Basic(optional=false)
+	@Column(name="id")
 	private Integer id;
 	
 	@Column

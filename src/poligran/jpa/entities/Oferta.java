@@ -3,6 +3,8 @@
  */
 package poligran.jpa.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +19,17 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class Oferta {
+public class Oferta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5897885862384457777L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Basic(optional=false)
+	@Column
 	private Integer id;
 	
 	@Column
