@@ -14,11 +14,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * @author Rodrigo
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(name="subasta.loadBySeller", query="SELECT s FROM Subasta s WHERE s.vendedor =:vendedor.id"),
+	@NamedQuery(name="subasta.loadByProduct", query="SELECT s FROM Subasta s WHERE s.articulo =:articulo.codigo")
+})
 public class Subasta implements Serializable{
 	
 	/**

@@ -14,11 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * @author Rodrigo
  *
  */
 @Entity
+@NamedQueries(
+		@NamedQuery(name="articulo.loadAllByAuction", query="SELECT o FROM Oferta o WHERE o.subasta.id =:subasta")
+	)
 public class Oferta implements Serializable{
 	
 	/**
