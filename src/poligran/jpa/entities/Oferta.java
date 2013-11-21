@@ -23,7 +23,7 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @NamedQueries(
-		@NamedQuery(name="articulo.loadAllByAuction", query="SELECT o FROM Oferta o WHERE o.subasta.id =:subasta")
+		@NamedQuery(name="oferta.loadAllByAuction", query="SELECT o FROM Oferta o WHERE o.subasta.id =:subasta")
 	)
 public class Oferta implements Serializable{
 	

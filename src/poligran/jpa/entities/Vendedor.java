@@ -10,11 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * @author Rodrigo
  *
  */
 @Entity
+@NamedQueries(
+		@NamedQuery(name="vendedor.loadAll", query="SELECT v FROM Vendedor v")
+	)
 public class Vendedor {
 	
 	@Id

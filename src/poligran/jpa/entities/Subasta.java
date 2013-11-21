@@ -4,6 +4,7 @@
 package poligran.jpa.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,8 +24,8 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name="subasta.loadBySeller", query="SELECT s FROM Subasta s WHERE s.vendedor =:vendedor.id"),
-	@NamedQuery(name="subasta.loadByProduct", query="SELECT s FROM Subasta s WHERE s.articulo =:articulo.codigo")
+	@NamedQuery(name="subasta.loadBySeller", query="SELECT s FROM Subasta s WHERE s.vendedor.id =:vendedor"),
+	@NamedQuery(name="subasta.loadByProduct", query="SELECT s FROM Subasta s WHERE s.articulo.codigo =:articulo")
 })
 public class Subasta implements Serializable{
 	
@@ -43,6 +44,11 @@ public class Subasta implements Serializable{
 	private int precioActual;
 	@Column
 	private boolean cambioPrecio;
+	
+	@Column
+	private Date fechaIni;
+	@Column
+	private Date fechaFin;
 	
 	@ManyToOne(targetEntity=Articulo.class)
 	@JoinColumn(name="cod_articulo")

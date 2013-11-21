@@ -12,11 +12,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * @author Rodrigo
  *
  */
 @Entity
+@NamedQueries(
+	@NamedQuery(name="usuario.loadAll", query="SELECT u FROM Usuario u")
+)
 public class Usuario implements Serializable{
 	
 	/**
