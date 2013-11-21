@@ -17,9 +17,9 @@ public interface ArticuloDAO {
 	
 	public List<Articulo> loadAll()throws PersistenceException;
 	
-	public Articulo getPelicula(int id)throws PersistenceException;
+	public Articulo getArticulo(int id)throws PersistenceException;
 	
-	public void registrarPelicula(Articulo a) throws PersistenceException;
+	public void registrarArticulo(Articulo a) throws PersistenceException;
 	
-	public void actualizarPelicula(Articulo a) throws PersistenceException;
+	public void actualizarArticulo(Articulo a) throws PersistenceException;
 }
