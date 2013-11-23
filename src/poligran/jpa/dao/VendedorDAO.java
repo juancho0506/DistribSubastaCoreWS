@@ -19,7 +19,7 @@ public interface VendedorDAO {
 	
 	public Vendedor getVendedor(int id)throws PersistenceException;
 	
-	public void registrarVendedor(Vendedor u) throws PersistenceException;
+	public void registrarVendedor(Vendedor v) throws PersistenceException;
 	
-	public void actualizarVendedor(Vendedor u) throws PersistenceException;
+	public void actualizarVendedor(Vendedor v) throws PersistenceException;
 }

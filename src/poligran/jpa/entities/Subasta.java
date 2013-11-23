@@ -98,4 +98,21 @@ public class Subasta implements Serializable{
 	public void setVendedor(Vendedor vendedor) {
 		this.vendedor = vendedor;
 	}
+
+	public Date getFechaIni() {
+		return fechaIni;
+	}
+
+	public void setFechaIni(Date fechaIni) {
+		this.fechaIni = fechaIni;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	
 }

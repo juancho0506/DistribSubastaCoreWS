@@ -33,20 +33,23 @@ public class DefaultVendedorDAO implements VendedorDAO {
 
 	@Override
 	public Vendedor getVendedor(int id) throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Vendedor.class, id);
 	}
 
 	@Override
-	public void registrarVendedor(Vendedor u) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+	public void registrarVendedor(Vendedor v) throws PersistenceException {
+		em.getTransaction().begin();
+		em.persist(v);
+		em.flush();
+		em.getTransaction().commit();
 	}
 
 	@Override
-	public void actualizarVendedor(Vendedor u) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+	public void actualizarVendedor(Vendedor v) throws PersistenceException {
+		em.getTransaction().begin();
+		em.merge(v);
+		em.flush();
+		em.getTransaction().commit();
 	}
 
 }
