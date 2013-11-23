@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import poligran.jpa.dao.OfertaDAO;
 import poligran.jpa.entities.Oferta;
 import poligran.jpa.entities.Subasta;
+import poligran.jpa.entities.Usuario;
 
 /**
  * @author Rodrigo
@@ -45,6 +46,16 @@ public class DefaultOfertaDAO implements OfertaDAO {
 		Query q = em.createNamedQuery("oferta.loadAll", Oferta.class);
 		q.setParameter("subasta", s.getId());
 		return q.getResultList();
+	}
+
+	@Override
+	public Oferta loadByAuctionUser(Usuario u, Subasta s)
+			throws PersistenceException {
+		
+		Query q = em.createNamedQuery("oferta.loadByAuctionUser", Oferta.class);
+		q.setParameter("usuario", u.getId());
+		q.setParameter("subasta", s.getId());
+		return (Oferta) q.getSingleResult();
 	}
 
 	/* (non-Javadoc)

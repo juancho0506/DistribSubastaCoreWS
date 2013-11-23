@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
@@ -22,9 +23,10 @@ import org.hibernate.annotations.NamedQuery;
  *
  */
 @Entity
-@NamedQueries(
-		@NamedQuery(name="oferta.loadAllByAuction", query="SELECT o FROM Oferta o WHERE o.subasta.id =:subasta")
-	)
+@NamedQueries({
+		@NamedQuery(name="oferta.loadAllByAuction", query="SELECT o FROM Oferta o WHERE o.subasta.id =:subasta"),
+		@NamedQuery(name="oferta.loadByAuctionUser", query="SELECT o FROM Oferta o WHERE o.subasta.id =:subasta AND o.usuario.id =:usuario")
+})
 public class Oferta implements Serializable{
 	
 	/**
@@ -40,6 +42,8 @@ public class Oferta implements Serializable{
 	
 	@Column
 	private int valorOferta;
+	
+	@Version int version;
 	
 	@ManyToOne(targetEntity=Usuario.class)
 	@JoinColumn(name="id_usuario")
@@ -80,6 +84,14 @@ public class Oferta implements Serializable{
 
 	public void setSubasta(Subasta subasta) {
 		this.subasta = subasta;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 }

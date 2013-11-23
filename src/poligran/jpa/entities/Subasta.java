@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
@@ -49,6 +50,8 @@ public class Subasta implements Serializable{
 	private Date fechaIni;
 	@Column
 	private Date fechaFin;
+	
+	@Version int version;
 	
 	@ManyToOne(targetEntity=Articulo.class)
 	@JoinColumn(name="cod_articulo")
@@ -113,6 +116,14 @@ public class Subasta implements Serializable{
 
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 }

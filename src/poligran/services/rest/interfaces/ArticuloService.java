@@ -12,4 +12,6 @@ package poligran.services.rest.interfaces;
 public interface ArticuloService {
 	
 	String listarArticulos();
+	
+	String verArticulo(int codArticulo);
 }
