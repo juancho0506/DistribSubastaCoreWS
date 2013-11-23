@@ -32,9 +32,9 @@ public class DefaultArticuloService implements ArticuloService {
 	@GET
     @Produces("application/json")
 	@Override
-	public JsonObject listarArticulos() {
-		//return "<html lang=\"en\"><body><h1>Hello, World!!</h1></body></html>";
-		Json json;
+	public String listarArticulos() {
+		return "<html lang=\"en\"><body><h1>Hello, World!!</h1></body></html>";
+		//Json json;
 	}
 
 }
