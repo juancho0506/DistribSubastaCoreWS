@@ -16,6 +16,7 @@ import poligran.jpa.dao.OfertaDAO;
 import poligran.jpa.entities.Oferta;
 import poligran.jpa.entities.Subasta;
 import poligran.jpa.entities.Usuario;
+import poligran.security.Watchdog;
 
 /**
  * @author Rodrigo
@@ -43,9 +44,12 @@ public class DefaultOfertaDAO implements OfertaDAO {
 	 */
 	@Override
 	public List<Oferta> loadAllByAuction(Subasta s) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		Query q = em.createNamedQuery("oferta.loadAll", Oferta.class);
 		q.setParameter("subasta", s.getId());
-		return q.getResultList();
+		List<Oferta> l = q.getResultList();
+		watchdog.stop();
+		return l;
 	}
 
 	@Override
@@ -63,7 +67,10 @@ public class DefaultOfertaDAO implements OfertaDAO {
 	 */
 	@Override
 	public Oferta getOferta(int id) throws PersistenceException {
-		return em.find(Oferta.class, id);
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
+		Oferta o = em.find(Oferta.class, id);
+		watchdog.stop();
+		return o;
 	}
 
 	/* (non-Javadoc)
@@ -71,11 +78,12 @@ public class DefaultOfertaDAO implements OfertaDAO {
 	 */
 	@Override
 	public void registrarOferta(Oferta a) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		em.getTransaction().begin();
 		em.persist(a);
 		em.flush();
 		em.getTransaction().commit();
-
+		watchdog.stop();
 	}
 
 	/* (non-Javadoc)
@@ -83,10 +91,12 @@ public class DefaultOfertaDAO implements OfertaDAO {
 	 */
 	@Override
 	public void actualizarOferta(Oferta a) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		em.getTransaction().begin();
 		em.merge(a);
 		em.flush();
 		em.getTransaction().commit();
+		watchdog.stop();
 	}
 	
 	public EntityManager getEm() {

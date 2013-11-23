@@ -10,6 +10,7 @@ import javax.persistence.PersistenceException;
 
 import poligran.jpa.dao.ArticuloDAO;
 import poligran.jpa.entities.Articulo;
+import poligran.security.Watchdog;
 
 public class DefaultArticuloDAO implements ArticuloDAO {
 	
@@ -27,29 +28,38 @@ public class DefaultArticuloDAO implements ArticuloDAO {
 
 	@Override
 	public List<Articulo> loadAll() throws PersistenceException {
-		return em.createNamedQuery("articulo.loadAll", Articulo.class).getResultList();
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
+		List<Articulo> l = em.createNamedQuery("articulo.loadAll", Articulo.class).getResultList();
+		watchdog.stop();
+		return l;
 	}
 
 	@Override
 	public Articulo getArticulo(int id) throws PersistenceException {
-		return em.find(Articulo.class, id);
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
+		Articulo a = em.find(Articulo.class, id);
+		watchdog.stop();
+		return a;
 	}
 
 	@Override
 	public void registrarArticulo(Articulo a) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		em.getTransaction().begin();
 		em.persist(a);
 		em.flush();
 		em.getTransaction().commit();
-
+		watchdog.stop();
 	}
 
 	@Override
 	public void actualizarArticulo(Articulo a) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		em.getTransaction().begin();
 		em.merge(a);
 		em.flush();
 		em.getTransaction().commit();
+		watchdog.stop();
 	}
 	
 	public EntityManager getEm() {
