@@ -9,8 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import com.google.gson.JsonObject;
-
 import poligran.services.rest.interfaces.ArticuloService;
 
 /**
@@ -30,7 +28,7 @@ public class DefaultArticuloService implements ArticuloService {
 	 * @see poligran.services.rest.interfaces.ArticuloService#listarArticulos()
 	 */
 	@GET
-    @Produces("application/json")
+    @Produces("text/html")
 	@Override
 	public String listarArticulos() {
 		return "<html lang=\"en\"><body><h1>Hello, World!!</h1></body></html>";
