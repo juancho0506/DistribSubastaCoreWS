@@ -16,6 +16,7 @@ import poligran.jpa.dao.SubastaDAO;
 import poligran.jpa.entities.Articulo;
 import poligran.jpa.entities.Subasta;
 import poligran.jpa.entities.Vendedor;
+import poligran.security.Watchdog;
 
 /**
  * @author Rodrigo
@@ -45,9 +46,12 @@ public class DefaultSubastaDAO implements SubastaDAO{
 	 */
 	@Override
 	public List<Subasta> loadBySeller(Vendedor v) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		Query q = em.createNamedQuery("subasta.loadBySeller", Subasta.class);
 		q.setParameter("vendedor", v.getId());
-		return q.getResultList();
+		List<Subasta> l = q.getResultList();
+		watchdog.stop();
+		return l;
 	}
 
 
@@ -56,9 +60,12 @@ public class DefaultSubastaDAO implements SubastaDAO{
 	 */
 	@Override
 	public List<Subasta> loadByProduct(Articulo a) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		Query q = em.createNamedQuery("subasta.loadByProduct", Subasta.class);
 		q.setParameter("articulo", a.getCodigo());
-		return q.getResultList();
+		List<Subasta> l = q.getResultList();
+		watchdog.stop();
+		return l;
 	}
 
 
@@ -67,7 +74,10 @@ public class DefaultSubastaDAO implements SubastaDAO{
 	 */
 	@Override
 	public Subasta getSubasta(int id) throws PersistenceException {
-		return em.find(Subasta.class, id);
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
+		Subasta s = em.find(Subasta.class, id);
+		watchdog.stop();
+		return s;
 	}
 
 	/* (non-Javadoc)
@@ -75,11 +85,12 @@ public class DefaultSubastaDAO implements SubastaDAO{
 	 */
 	@Override
 	public void registrarSubasta(Subasta s) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		em.getTransaction().begin();
 		em.persist(s);
 		em.flush();
 		em.getTransaction().commit();
-		
+		watchdog.stop();
 	}
 
 	/* (non-Javadoc)
@@ -87,11 +98,12 @@ public class DefaultSubastaDAO implements SubastaDAO{
 	 */
 	@Override
 	public void actualizarSubasta(Subasta s) throws PersistenceException {
+		Watchdog watchdog = new Watchdog(Thread.currentThread());
 		em.getTransaction().begin();
 		em.merge(s);
 		em.flush();
 		em.getTransaction().commit();
-		
+		watchdog.stop();
 	}
 	
 	public EntityManager getEm() {
